@@ -89,9 +89,9 @@ const SimProvider = ({ children }: { children: React.ReactNode }) => {
     filasError,
   ]);
 
-  const [result, setResult] = React.useState<Vector[]>([]);
-  const [progress, setProgress] = React.useState<number>(0);
-  const { worker } = useSimWorker({ params, setResult, setProgress });
+  // const [result, setResult] = React.useState<Vector[]>([]);
+  // const [progress, setProgress] = React.useState<number>(0);
+  const { worker, progress, result } = useSimWorker();
 
   const context: SimContextValue = {
     params,
@@ -136,22 +136,14 @@ export type Vector = {
   ganancia_ac: number;
 };
 
-const useSimWorker = ({
-  params,
-  setResult,
-  setProgress,
-}: {
-  params: SimContextValue["params"];
-  setResult: React.Dispatch<React.SetStateAction<Vector[]>>;
-  setProgress: React.Dispatch<React.SetStateAction<number>>;
-}) => {
+const useSimWorker = () => {
   const [worker, setWorker] = React.useState<Worker | null>(null);
+  const [result, setResult] = React.useState<Vector[]>([]);
+  const [progress, setProgress] = React.useState<number>(0);
 
   React.useEffect(() => {
-    // Initialize worker
     const newWorker = new Worker(new URL("./sim-worker.ts", import.meta.url));
 
-    // Handle worker messages
     newWorker.onmessage = (
       event: MessageEvent<{ progress: number; data: Vector[] }>
     ) => {
@@ -159,17 +151,14 @@ const useSimWorker = ({
       setProgress(event.data.progress);
     };
 
-    // // Send computation to worker
-    // newWorker.postMessage(params);
     setWorker(newWorker);
 
-    // Cleanup the worker when component unmounts
     return () => {
       newWorker.terminate();
     };
-  }, [params]);
+  }, [setResult, setProgress, setWorker]);
 
-  return { worker };
+  return { worker, result, progress };
 };
 
 export { SimProvider, useSim };

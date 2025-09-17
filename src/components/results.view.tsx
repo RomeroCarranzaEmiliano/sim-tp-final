@@ -30,9 +30,7 @@ export default function ResultsView() {
           </div>
           <button
             onClick={() => setPage((prev: number) => prev + 1)}
-            disabled={
-              page == Math.ceil(lastRes.length / 52)
-            }
+            disabled={page == Math.ceil(lastRes.length / 52)}
             className="border border-[#bbb] p-4 cursor-pointer hover:border-black disabled:bg-gray-50 disabled:text-gray-400"
           >
             Siguiente
@@ -41,9 +39,7 @@ export default function ResultsView() {
         <table className="table-auto w-full mt-2">
           <thead>
             <tr>
-              <th className="text-center p-4 border border-[#bbb]">
-                Reloj(días)
-              </th>
+              <th className="text-center p-4 border border-[#bbb]">día</th>
               <th className="text-center p-4 border border-[#bbb]">RND</th>
               <th className="text-center p-4 border border-[#bbb]">
                 Tipo de día
@@ -124,64 +120,66 @@ export default function ResultsView() {
                   </tr>
                 )
             )}
-            <tr
-              key={lastRes.length - 1}
-              className={"hover:bg-blue-50 bg-green-200"}
-            >
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].reloj}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].tipo_dia?.rnd.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].tipo_dia?.tipo}
-                {lastRes[lastRes.length - 1].reloj > 0 &&
-                  (lastRes[lastRes.length - 1].tipo_dia?.tipo == "SOLEADO"
-                    ? " ☀️"
-                    : " ☁️")}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].demanda.rnd?.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].demanda.cantidad}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].disponible.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].stock.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].faltante.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                $ {lastRes[lastRes.length - 1].costos.Ko.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                $ {lastRes[lastRes.length - 1].costos.Km.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                $ {lastRes[lastRes.length - 1].costos.Ks.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                {lastRes[lastRes.length - 1].cantidad_vendida.toFixed(2)}
-              </td>
-              <td
-                className={
-                  "text-center p-4 border border-[#bbb] " +
-                  (lastRes[lastRes.length - 1].ganancia >= 0
-                    ? "text-green-400"
-                    : "text-red-400")
-                }
+            {lastRes[lastRes.length - 1] && (
+              <tr
+                key={lastRes.length - 1}
+                className={"hover:bg-blue-50 bg-green-200"}
               >
-                $ {lastRes[lastRes.length - 1].ganancia.toFixed(2)}
-              </td>
-              <td className="text-center p-4 border border-[#bbb]">
-                $ {lastRes[lastRes.length - 1].ganancia_ac.toFixed(2)}
-              </td>
-            </tr>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].reloj}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].tipo_dia?.rnd.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].tipo_dia?.tipo}
+                  {lastRes[lastRes.length - 1].reloj > 0 &&
+                    (lastRes[lastRes.length - 1].tipo_dia?.tipo == "SOLEADO"
+                      ? " ☀️"
+                      : " ☁️")}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].demanda.rnd?.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].demanda.cantidad}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].disponible.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].stock.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].faltante.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  $ {lastRes[lastRes.length - 1].costos.Ko.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  $ {lastRes[lastRes.length - 1].costos.Km.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  $ {lastRes[lastRes.length - 1].costos.Ks.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  {lastRes[lastRes.length - 1].cantidad_vendida.toFixed(2)}
+                </td>
+                <td
+                  className={
+                    "text-center p-4 border border-[#bbb] " +
+                    (lastRes[lastRes.length - 1].ganancia >= 0
+                      ? "text-green-400"
+                      : "text-red-400")
+                  }
+                >
+                  $ {lastRes[lastRes.length - 1].ganancia.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  $ {lastRes[lastRes.length - 1].ganancia_ac.toFixed(2)}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
         <div className="w-full flex flex-row justify-end">
