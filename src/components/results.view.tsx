@@ -26,11 +26,13 @@ export default function ResultsView() {
             Anterior
           </button>
           <div className="p-4 border border-[#bbb] flex w-full mx-4 justify-center font-bold">
-            Pagina {page}/{Math.round(lastRes.length / 50)}
+            Pagina {page}/{Math.ceil(lastRes.length / 52)}
           </div>
           <button
             onClick={() => setPage((prev: number) => prev + 1)}
-            disabled={page == Math.round(lastRes.length / 50)}
+            disabled={
+              page == Math.ceil(lastRes.length / 52)
+            }
             className="border border-[#bbb] p-4 cursor-pointer hover:border-black disabled:bg-gray-50 disabled:text-gray-400"
           >
             Siguiente

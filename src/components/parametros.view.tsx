@@ -1,4 +1,4 @@
-import { SimContextValue, useSim } from "@/hooks/useSim";
+import { useSim } from "@/hooks/useSim";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ export const schema = z.object({
   Ks: z.string().refine((val) => !isNaN(parseFloat(val)), {
     message: "debe ser un número válido en formato string",
   }),
-  Si: z.string().refine((val) => !isNaN(parseFloat(val)), {
+  precio_x_docena: z.string().refine((val) => !isNaN(parseFloat(val)), {
     message: "debe ser un número válido en formato string",
   }),
   dinamicQ: z.boolean(),
@@ -27,7 +27,7 @@ export default function ParametrosView() {
   const { params, setParams, setParametrosError } = useSim();
 
   const handleChangeParam = (
-    key: "Q" | "Ko" | "Km" | "Ks" | "Si" | "dinamicQ",
+    key: "Q" | "Ko" | "Km" | "Ks" | "precio_x_docena" | "dinamicQ",
     v: string | boolean
   ) => {
     if (typeof v == "boolean") {
@@ -56,8 +56,8 @@ export default function ParametrosView() {
       Ko: params.Ko.toString(),
       Km: params.Km.toString(),
       Ks: params.Ks.toString(),
-      Si: params.Si.toString(),
       dinamicQ: params.dinamicQ,
+      precio_x_docena: params.precio_x_docena.toString(),
     },
   });
 
@@ -125,18 +125,18 @@ export default function ParametrosView() {
             <td className="text-nowrap p-4 border border-[#bbb]">por docena</td>
           </tr>
           <tr>
-            <td className="p-4 border border-[#bbb] font-bold">
-              Stock inicial
-            </td>
+            <td className="p-4 border border-[#bbb] font-bold">Ganancia</td>
             <td className="border border-[#bbb]">
               <input
                 className="w-full h-full p-4 text-center"
-                placeholder="Stock"
-                value={form.watch()["Si"]}
-                onChange={(e) => handleChangeParam("Si", e.target.value)}
+                placeholder="Ganancia"
+                value={form.watch()["precio_x_docena"]}
+                onChange={(e) =>
+                  handleChangeParam("precio_x_docena", e.target.value)
+                }
               />
             </td>
-            <td className="text-nowrap p-4 border border-[#bbb]">docena/s</td>
+            <td className="text-nowrap p-4 border border-[#bbb]">por docena</td>
           </tr>
           <tr>
             <td className="p-4 border border-[#bbb] font-bold">

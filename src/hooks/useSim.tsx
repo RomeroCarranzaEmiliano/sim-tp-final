@@ -5,30 +5,6 @@ export type ProbabilidadValue<T> = {
   p: number;
 };
 
-const calcP = <T,>(table: ProbabilidadValue<T>[], p: number) => {
-  /** Obtener la tabla con las probabilidades acumuladas */
-  const table_with_ac = [] as (ProbabilidadValue<T> & { ac: number })[];
-  let ac = 0;
-  table.forEach((value, index) => {
-    ac = index == 0 ? value.p : ac + value.p;
-    table_with_ac.push({
-      key: value.key,
-      p: value.p,
-      ac: ac,
-    });
-  });
-
-  const value = table_with_ac.find((v) => p < v.ac);
-  //if (table[0].key == "SOLEADO") console.log(value, " -- ", p);
-  if (typeof value == "undefined")
-    throw new Error(
-      "Inconsistencia en la tabla de probabilidad: \n" +
-        table.map((v) => "| " + v.key + " | " + v.p + " |\n")
-    );
-
-  return value.key;
-};
-
 export type SimContextValue = {
   params: {
     precio_x_docena: number;
@@ -42,7 +18,6 @@ export type SimContextValue = {
     simRows: number;
     printFrom: number;
     printRows: number;
-    Si: number;
     dinamicQ: boolean;
   };
   setParams: React.Dispatch<React.SetStateAction<SimContextValue["params"]>>;
@@ -89,14 +64,13 @@ const SimProvider = ({ children }: { children: React.ReactNode }) => {
       { key: "NUBLADO", p: 0.27 },
     ],
     Q: 8,
-    Ko: 56,
-    Km: 0,
+    Ko: 7,
+    Km: 1.44,
     Ks: 0.96,
     simRows: 100,
     printFrom: 0,
     printRows: 50,
-    Si: 0,
-    dinamicQ: false
+    dinamicQ: false,
   });
 
   React.useEffect(() => {
