@@ -14,6 +14,9 @@ export const schema = z.object({
   Km: z.string().refine((val) => !isNaN(parseFloat(val)), {
     message: "debe ser un número válido en formato string",
   }),
+  Kc: z.string().refine((val) => !isNaN(parseFloat(val)), {
+    message: "debe ser un número válido en formato string",
+  }),
   Ks: z.string().refine((val) => !isNaN(parseFloat(val)), {
     message: "debe ser un número válido en formato string",
   }),
@@ -27,7 +30,7 @@ export default function ParametrosView() {
   const { params, setParams, setParametrosError } = useSim();
 
   const handleChangeParam = (
-    key: "Q" | "Ko" | "Km" | "Ks" | "precio_x_docena" | "dinamicQ",
+    key: "Q" | "Ko" | "Km" | "Ks" | "Kc" | "precio_x_docena" | "dinamicQ",
     v: string | boolean
   ) => {
     if (typeof v == "boolean") {
@@ -55,6 +58,7 @@ export default function ParametrosView() {
       Q: params.Q.toString(),
       Ko: params.Ko.toString(),
       Km: params.Km.toString(),
+      Kc: params.Kc.toString(),
       Ks: params.Ks.toString(),
       dinamicQ: params.dinamicQ,
       precio_x_docena: params.precio_x_docena.toString(),
@@ -96,6 +100,18 @@ export default function ParametrosView() {
                 placeholder="Ko"
                 value={form.watch()["Ko"]}
                 onChange={(e) => handleChangeParam("Ko", e.target.value)}
+              />
+            </td>
+            <td className="text-nowrap p-4 border border-[#bbb]">por docena</td>
+          </tr>
+          <tr>
+            <td className="p-4 border border-[#bbb] font-bold">Kc</td>
+            <td className="border border-[#bbb]">
+              <input
+                className="w-full h-full p-4 text-center"
+                placeholder="Kc"
+                value={form.watch()["Kc"]}
+                onChange={(e) => handleChangeParam("Kc", e.target.value)}
               />
             </td>
             <td className="text-nowrap p-4 border border-[#bbb]">por docena</td>

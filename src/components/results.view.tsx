@@ -52,6 +52,7 @@ export default function ResultsView() {
               <th className="text-center p-4 border border-[#bbb]">Stock</th>
               <th className="text-center p-4 border border-[#bbb]">Faltante</th>
               <th className="text-center p-4 border border-[#bbb]">Ko</th>
+              <th className="text-center p-4 border border-[#bbb]">Kc</th>
               <th className="text-center p-4 border border-[#bbb]">Km</th>
               <th className="text-center p-4 border border-[#bbb]">Ks</th>
               <th className="text-center p-4 border border-[#bbb]">Ventas</th>
@@ -96,6 +97,9 @@ export default function ResultsView() {
                     </td>
                     <td className="text-center p-4 border border-[#bbb]">
                       $ {row.costos.Ko.toFixed(2)}
+                    </td>
+                    <td className="text-center p-4 border border-[#bbb]">
+                      $ {row.costos.Kc.toFixed(2)}
                     </td>
                     <td className="text-center p-4 border border-[#bbb]">
                       $ {row.costos.Km.toFixed(2)}
@@ -155,6 +159,9 @@ export default function ResultsView() {
                 </td>
                 <td className="text-center p-4 border border-[#bbb]">
                   $ {lastRes[lastRes.length - 1].costos.Ko.toFixed(2)}
+                </td>
+                <td className="text-center p-4 border border-[#bbb]">
+                  $ {lastRes[lastRes.length - 1].costos.Kc.toFixed(2)}
                 </td>
                 <td className="text-center p-4 border border-[#bbb]">
                   $ {lastRes[lastRes.length - 1].costos.Km.toFixed(2)}

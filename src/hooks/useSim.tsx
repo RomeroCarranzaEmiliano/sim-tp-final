@@ -13,6 +13,7 @@ export type SimContextValue = {
     tipo_dia: ProbabilidadValue<string>[];
     Q: number;
     Ko: number;
+    Kc: number;
     Km: number;
     Ks: number;
     simRows: number;
@@ -64,7 +65,8 @@ const SimProvider = ({ children }: { children: React.ReactNode }) => {
       { key: "NUBLADO", p: 0.27 },
     ],
     Q: 8,
-    Ko: 7,
+    Ko: 0,
+    Kc: 7,
     Km: 1.44,
     Ks: 0.96,
     simRows: 100,
@@ -129,6 +131,7 @@ export type Vector = {
   cantidad_vendida: number;
   costos: {
     Ko: number;
+    Kc: number;
     Km: number;
     Ks: number;
   };

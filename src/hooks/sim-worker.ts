@@ -35,6 +35,7 @@ const runSim = (params: SimContextValue["params"]) => {
     cantidad_vendida: 0,
     costos: {
       Ko: 0,
+      Kc: 0,
       Km: 0,
       Ks: 0,
     },
@@ -59,10 +60,10 @@ const runSim = (params: SimContextValue["params"]) => {
     if (!prev) throw new Error("Línea de inicialización sin definir");
 
     /** simular linea actual */
-    const rnd_tipo_dia = Math.floor(Math.random() * 100) / 100
+    const rnd_tipo_dia = Math.floor(Math.random() * 100) / 100;
     const value_tipo_dia = calcP(params.tipo_dia, rnd_tipo_dia);
     const tipo_dia = { rnd: rnd_tipo_dia, tipo: value_tipo_dia as TipoDia };
-    const rnd_demanda = Math.floor(Math.random() * 100) / 100
+    const rnd_demanda = Math.floor(Math.random() * 100) / 100;
     const value_demanda =
       tipo_dia.tipo == "SOLEADO"
         ? calcP(params.demanda_dia_soleado, rnd_demanda)
@@ -80,7 +81,8 @@ const runSim = (params: SimContextValue["params"]) => {
     const stock =
       disponible - value_demanda < 0 ? 0 : disponible - value_demanda;
     const costos = {
-      Ko: params.Ko * params.Q,
+      Ko: params.Ko,
+      Kc: params.Kc * disponible,
       Km: params.Km * stock,
       Ks: params.Ks * faltante,
     };
