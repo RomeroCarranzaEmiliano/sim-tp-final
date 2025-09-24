@@ -88,9 +88,10 @@ const runSim = (params: SimContextValue["params"]) => {
     };
     const ganancia =
       cantidad_vendida * params.precio_x_docena -
-      costos.Ko -
+      costos.Ko +
       costos.Km -
-      costos.Ks;
+      costos.Ks -
+      costos.Kc;
     const ganancia_ac = prev.ganancia_ac + ganancia;
 
     const next: Vector = {
